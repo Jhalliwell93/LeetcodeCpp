@@ -1,0 +1,56 @@
+// the purpose in this algorithm is to complete the challenge described in https://leetcode.com/problems/left-and-right-sum-differences/description/  
+
+#include <iostream>
+#include <vector>  // Include vector
+#include <cstdlib>  // For std::abs
+// #include <string>   // For std::string
+// #include <bitset>
+
+using namespace std;
+
+vector<int> leftRightDifference(vector<int>& nums)
+{
+
+    int arraylen = nums.size();   // creates an integer the size of the nums array
+    
+    // create arrays to store the leftsum and rightsum
+    vector<int> leftarr(arraylen);  
+    vector<int> rightarr(arraylen);
+    leftarr[0] = 0;
+    rightarr[arraylen-1] = 0;
+
+    for(int i = 1; i < arraylen; i++)
+    {
+        leftarr[i] = nums[i-1] + leftarr[i-1];                              // fill the leftsum array
+        rightarr[arraylen-1-i] = nums[arraylen-i] + rightarr[arraylen-i];   // fill the rightsum array
+    }
+
+    vector<int> ans(arraylen);                                              // create an array for the answer
+
+    for(int i = 0; i < arraylen; i++)
+    {
+        ans[i] = abs(leftarr[i]-rightarr[i]);                               // deduct the 
+    }
+    return ans;
+
+}
+
+
+int printVector(vector<int>& result)
+{
+        // Print the result
+    for (int i : result) {
+        cout << i << " ";
+    }
+    cout << endl;
+    return 0;
+}
+int main() {
+    
+    vector<int> shuff = {4,3,2,2};   // array to pass into the leftrightdifference function
+
+    vector<int> ans = leftRightDifference(shuff);
+    printVector(ans);                // print the result
+
+    return 0;
+}
